@@ -6,14 +6,14 @@
 #    By: jaebae <jaebae@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/28 09:05:59 by jaebae            #+#    #+#              #
-#    Updated: 2022/04/28 14:21:47 by jaebae           ###   ########.fr        #
+#    Updated: 2022/05/11 00:03:36 by jaebae           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
 CC = gcc
-CFLAG = -Wall -Wextra -Werror -g
+CFLAG = -Wall -Wextra -Werror
 
 SRC = 
 SRCS = \
