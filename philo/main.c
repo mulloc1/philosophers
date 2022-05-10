@@ -6,7 +6,7 @@
 /*   By: jaebae <jaebae@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 09:03:48 by jaebae            #+#    #+#             */
-/*   Updated: 2022/04/28 13:43:53 by jaebae           ###   ########.fr       */
+/*   Updated: 2022/05/09 12:22:23 by jaebae           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@ void	*philo_run(void *ptr)
 	philo = (t_philo *)ptr;
 	if (philo->info->number_to_philo == 1)
 		died(philo);
-	if (philo->my_pork % 2 == 0)
+	if (philo->my_fork % 2 == 0)
 		ft_usleep(philo->info->time_to_eat_u);
 	while (1)
 	{
-		pthread_mutex_lock(&philo->m_porks[philo->my_pork]);
-		pthread_mutex_lock(&philo->m_porks[philo->next_pork]);
+		pthread_mutex_lock(&philo->m_forks[philo->my_fork]);
+		pthread_mutex_lock(&philo->m_forks[philo->next_fork]);
 		eating(philo);
-		pthread_mutex_unlock(&philo->m_porks[philo->next_pork]);
-		pthread_mutex_unlock(&philo->m_porks[philo->my_pork]);
+		pthread_mutex_unlock(&philo->m_forks[philo->next_fork]);
+		pthread_mutex_unlock(&philo->m_forks[philo->my_fork]);
 		sleeping(philo);
 		thinking(philo);
 		philo->eat_cnt++;
@@ -63,7 +63,7 @@ int	main(int argc, char *argv[])
 	t_philo	*philos;
 
 	if (argc < 5 || argc > 6)
-		error_handler("argc\n", 1);
+		error_handler("argc few\n", 1);
 	init(argc, argv, &philos);
 	philo_thread_init(philos);
 }

@@ -43,9 +43,9 @@ typedef struct s_philo {
 	long				run_time;
 	long				last_eat_time;
 	int					eat_cnt;
-	int					my_pork;
-	int					next_pork;
-	pthread_mutex_t		*m_porks;
+	int					my_fork;
+	int					next_fork;
+	pthread_mutex_t		*m_forks;
 	pthread_mutex_t		*m_locker;
 }				t_philo;
 

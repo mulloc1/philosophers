@@ -6,7 +6,7 @@
 /*   By: jaebae <jaebae@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 09:04:52 by jaebae            #+#    #+#             */
-/*   Updated: 2022/04/28 11:36:41 by jaebae           ###   ########.fr       */
+/*   Updated: 2022/05/09 12:14:29 by jaebae           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	philo_thread_init(t_philo *philos)
 	{
 		philos[i].run_time = time;
 		philos[i].last_eat_time = time;
-		pthread_mutex_init(&philos[1].m_porks[i], NULL);
+		pthread_mutex_init(&philos[1].m_forks[i], NULL);
 		pthread_create(&philos[i].tid, NULL, philo_run, (void *)&philos[i]);
 	}
 	pthread_create(&monitor_tid, NULL, monitor_run, (void *)philos);
@@ -52,29 +52,34 @@ t_info	*info_init(int argc, char *argv[])
 	info->philo_must_eat = -1;
 	if (argc == 6)
 		info->philo_must_eat = ft_atoi(argv[5]);
+	if (info->number_to_philo == 1)
+	{
+		printf("0 1 died\n");
+		exit(0);
+	}
 	return (info);
 }
 
 void	init(int argc, char *argv[], t_philo **philos)
 {
 	t_info			*info;
-	pthread_mutex_t	*m_porks;
+	pthread_mutex_t	*m_forks;
 	pthread_mutex_t	*m_locker;
 	int				i;
 
 	info = info_init(argc, argv);
 	*philos = ft_calloc(info->number_to_philo, sizeof(t_philo));
-	m_porks = malloc(sizeof(pthread_mutex_t) * (info->number_to_philo));
+	m_forks = malloc(sizeof(pthread_mutex_t) * (info->number_to_philo));
 	m_locker = malloc(sizeof(pthread_mutex_t) * 2);
 	i = -1;
 	while (++i < info->number_to_philo)
 	{
 		(*philos)[i].info = info;
-		(*philos)[i].my_pork = i;
-		(*philos)[i].next_pork = i + 1;
+		(*philos)[i].my_fork = i;
+		(*philos)[i].next_fork = i + 1;
 		if (i == info->number_to_philo - 1)
-			(*philos)[i].next_pork = 0;
-		(*philos)[i].m_porks = m_porks;
+			(*philos)[i].next_fork = 0;
+		(*philos)[i].m_forks = m_forks;
 		(*philos)[i].m_locker = m_locker;
 		(*philos)[i].first_philo = *philos;
 	}
