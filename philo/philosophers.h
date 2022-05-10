@@ -22,8 +22,6 @@
 
 # define INT_MAX_H 2147483647
 # define LONG_MAX_H 9223372036854775807
-# define M_PRINTABLE 0
-# define M_FINISHED_EAT 1
 
 typedef struct s_info {
 	int				number_to_philo;
@@ -39,14 +37,13 @@ typedef struct s_info {
 typedef struct s_philo {
 	t_info				*info;
 	pthread_t			tid;
-	struct s_philo		*first_philo;
 	long				run_time;
 	long				last_eat_time;
 	int					eat_cnt;
-	int					my_fork;
-	int					next_fork;
+	int					left_fork;
+	int					right_fork;
 	pthread_mutex_t		*m_forks;
-	pthread_mutex_t		*m_locker;
+	pthread_mutex_t		*m_printable;
 }				t_philo;
 
 void	finished_eat_exit(t_philo *philo);

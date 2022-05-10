@@ -6,7 +6,7 @@
 /*   By: jaebae <jaebae@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 09:04:52 by jaebae            #+#    #+#             */
-/*   Updated: 2022/05/09 12:14:29 by jaebae           ###   ########.fr       */
+/*   Updated: 2022/05/10 23:39:29 by jaebae           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,20 @@ void	philo_thread_init(t_philo *philos)
 	long		time;
 	pthread_t	monitor_tid;
 
-	i = -1;
 	monitor_tid = NULL;
 	time = time_stamp();
-	while (++i < philos[1].info->number_to_philo)
+	i = -1;
+	while (++i < philos[0].info->number_to_philo)
 	{
 		philos[i].run_time = time;
 		philos[i].last_eat_time = time;
-		pthread_mutex_init(&philos[1].m_forks[i], NULL);
+		pthread_mutex_init(&philos[0].m_forks[i], NULL);
 		pthread_create(&philos[i].tid, NULL, philo_run, (void *)&philos[i]);
 	}
 	pthread_create(&monitor_tid, NULL, monitor_run, (void *)philos);
-	pthread_mutex_init(&philos[1].m_locker[M_PRINTABLE], NULL);
-	pthread_mutex_init(&philos[1].m_locker[M_FINISHED_EAT], NULL);
+	pthread_mutex_init(philos[0].m_printable, NULL);
 	i = -1;
-	while (++i < philos[1].info->number_to_philo)
+	while (++i < philos[0].info->number_to_philo)
 		pthread_join(philos[i].tid, NULL);
 	pthread_join(monitor_tid, NULL);
 }
@@ -52,11 +51,6 @@ t_info	*info_init(int argc, char *argv[])
 	info->philo_must_eat = -1;
 	if (argc == 6)
 		info->philo_must_eat = ft_atoi(argv[5]);
-	if (info->number_to_philo == 1)
-	{
-		printf("0 1 died\n");
-		exit(0);
-	}
 	return (info);
 }
 
@@ -64,23 +58,20 @@ void	init(int argc, char *argv[], t_philo **philos)
 {
 	t_info			*info;
 	pthread_mutex_t	*m_forks;
-	pthread_mutex_t	*m_locker;
+	pthread_mutex_t	*m_printable;
 	int				i;
 
 	info = info_init(argc, argv);
 	*philos = ft_calloc(info->number_to_philo, sizeof(t_philo));
 	m_forks = malloc(sizeof(pthread_mutex_t) * (info->number_to_philo));
-	m_locker = malloc(sizeof(pthread_mutex_t) * 2);
+	m_printable = malloc(sizeof(pthread_mutex_t));
 	i = -1;
 	while (++i < info->number_to_philo)
 	{
 		(*philos)[i].info = info;
-		(*philos)[i].my_fork = i;
-		(*philos)[i].next_fork = i + 1;
-		if (i == info->number_to_philo - 1)
-			(*philos)[i].next_fork = 0;
+		(*philos)[i].left_fork = i;
+		(*philos)[i].right_fork = (i + 1) % info->number_to_philo;
 		(*philos)[i].m_forks = m_forks;
-		(*philos)[i].m_locker = m_locker;
-		(*philos)[i].first_philo = *philos;
+		(*philos)[i].m_printable = m_printable;
 	}
 }
