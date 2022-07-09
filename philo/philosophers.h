@@ -6,7 +6,7 @@
 /*   By: jaebae <jaebae@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 09:02:40 by jaebae            #+#    #+#             */
-/*   Updated: 2022/04/28 11:36:05 by jaebae           ###   ########.fr       */
+/*   Updated: 2022/07/08 12:58:04 by jaebae           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ long	ft_atol(const char *str);
 size_t	ft_strlen(const char *s);
 void	init(int argc, char *argv[], t_philo **philos);
 void	*philo_run(void *ptr);
-void	*monitor_run(void *ptr);
+void	monitor_run(t_philo *philos);
 void	philo_thread_init(t_philo *philos);
 long	time_stamp(void);
 long	time_stamp_u(void);

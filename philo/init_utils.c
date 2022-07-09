@@ -6,7 +6,7 @@
 /*   By: jaebae <jaebae@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 09:04:52 by jaebae            #+#    #+#             */
-/*   Updated: 2022/05/10 23:39:29 by jaebae           ###   ########.fr       */
+/*   Updated: 2022/07/08 12:57:04 by jaebae           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@ void	philo_thread_init(t_philo *philos)
 {
 	int			i;
 	long		time;
-	pthread_t	monitor_tid;
 
-	monitor_tid = NULL;
 	time = time_stamp();
 	i = -1;
 	while (++i < philos[0].info->number_to_philo)
@@ -28,12 +26,7 @@ void	philo_thread_init(t_philo *philos)
 		pthread_mutex_init(&philos[0].m_forks[i], NULL);
 		pthread_create(&philos[i].tid, NULL, philo_run, (void *)&philos[i]);
 	}
-	pthread_create(&monitor_tid, NULL, monitor_run, (void *)philos);
 	pthread_mutex_init(philos[0].m_printable, NULL);
-	i = -1;
-	while (++i < philos[0].info->number_to_philo)
-		pthread_join(philos[i].tid, NULL);
-	pthread_join(monitor_tid, NULL);
 }
 
 t_info	*info_init(int argc, char *argv[])
@@ -48,8 +41,7 @@ t_info	*info_init(int argc, char *argv[])
 	info->time_to_die_u = info->time_to_die_m * 1000;
 	info->time_to_eat_u = info->time_to_eat_m * 1000;
 	info->time_to_sleep_u = info->time_to_sleep_m * 1000;
-	info->philo_must_eat = -1;
-	if (argc == 6)
+	info->philo_must_eat = -1; if (argc == 6)
 		info->philo_must_eat = ft_atoi(argv[5]);
 	return (info);
 }
@@ -63,8 +55,14 @@ void	init(int argc, char *argv[], t_philo **philos)
 
 	info = info_init(argc, argv);
 	*philos = ft_calloc(info->number_to_philo, sizeof(t_philo));
+	if (!(*philos))
+		error_handler("init philos malloc failed", 1);
 	m_forks = malloc(sizeof(pthread_mutex_t) * (info->number_to_philo));
+	if (!m_forks)
+		error_handler("init m_forks malloc failed", 1);
 	m_printable = malloc(sizeof(pthread_mutex_t));
+	if (!m_printable)
+		error_handler("init m_printable malloc failed", 1);
 	i = -1;
 	while (++i < info->number_to_philo)
 	{

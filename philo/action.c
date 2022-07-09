@@ -6,7 +6,7 @@
 /*   By: jaebae <jaebae@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 08:58:38 by jaebae            #+#    #+#             */
-/*   Updated: 2022/05/10 23:23:32 by jaebae           ###   ########.fr       */
+/*   Updated: 2022/07/08 13:33:04 by jaebae           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,17 @@ void	eating(t_philo *philo)
 	long	current_time;
 
 	pthread_mutex_lock(&philo->m_forks[philo->left_fork]);
+	pthread_mutex_lock(philo->m_printable);
+	current_time = time_stamp();
+	printf("%ld %d has taken a fork\n", \
+		current_time - philo->run_time, philo->left_fork + 1);
+	pthread_mutex_unlock(philo->m_printable);
 	pthread_mutex_lock(&philo->m_forks[philo->right_fork]);
 	pthread_mutex_lock(philo->m_printable);
 	current_time = time_stamp();
 	philo->last_eat_time = current_time;
 	printf("%ld %d has taken a fork\n%ld %d is eating\n", \
-		current_time - philo->run_time, philo->left_fork + 1, \
+		current_time - philo->run_time, philo->right_fork + 1, \
 		current_time - philo->run_time, philo->left_fork + 1);
 	pthread_mutex_unlock(philo->m_printable);
 	ft_usleep(philo->info->time_to_eat_u);
@@ -61,6 +66,4 @@ void	died(t_philo *philo)
 	current_time = time_stamp();
 	printf("%ld %d died\n", \
 			current_time - philo->run_time, philo->left_fork + 1);
-	exit(0);
-	pthread_mutex_unlock(philo->m_printable);
 }
