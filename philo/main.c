@@ -6,7 +6,7 @@
 /*   By: jaebae <jaebae@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 15:42:24 by jaebae            #+#    #+#             */
-/*   Updated: 2022/07/11 18:55:27 by jaebae           ###   ########.fr       */
+/*   Updated: 2022/07/11 19:29:19 by jaebae           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ void	*philo_run(void *ptr)
 	{
 		eating(philo);
 		sleeping(philo);
-		thinking(philo);
 		if (++philo->eat_cnt == philo->info->philo_must_eat)
 			break ;
+		thinking(philo);
 	}
 	return (NULL);
 }
@@ -38,10 +38,10 @@ void	monitor_run(t_philo *philos)
 	int		finished_eat_cnt;
 	int		i;
 
-	finished_eat_cnt = 0;
 	while (philos->info->is_processing)
 	{
 		i = -1;
+		finished_eat_cnt = 0;
 		while (++i < philos[0].info->number_to_philo)
 		{
 			current_time = time_stamp();
