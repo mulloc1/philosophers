@@ -1,38 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   monitor_run.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaebae <jaebae@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/11 15:42:24 by jaebae            #+#    #+#             */
-/*   Updated: 2022/07/12 09:20:55 by jaebae           ###   ########.fr       */
+/*   Created: 2022/07/12 09:33:30 by jaebae            #+#    #+#             */
+/*   Updated: 2022/07/12 09:38:16 by jaebae           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h" 
+#include "philosophers.h"
 
-void	*philo_run(void *ptr)
-{
-	t_philo	*philo;
-
-	philo = (t_philo *)ptr;
-	if (philo->info->number_to_philo == 1)
-		ft_usleep(philo->info->time_to_eat_u * 2);
-	if (philo->left_fork % 2 == 0)
-		ft_usleep(philo->info->time_to_eat_u);
-	while (philo->info->is_processing)
-	{
-		eating(philo);
-		sleeping(philo);
-		if (++philo->eat_cnt == philo->info->philo_must_eat)
-			break ;
-		thinking(philo);
-	}
-	return (NULL);
-}
-
-int	philo_died_check(t_philo	*philos)
+static int	philo_died_check(t_philo	*philos)
 {
 	long	current_time;
 
@@ -70,21 +50,4 @@ void	monitor_run(t_philo *philos)
 			}
 		}
 	}
-}
-
-int	main(int argc, char *argv[])
-{
-	t_philo		*philos;
-	int			i;
-
-	if (argc < 5 || argc > 6)
-		return (1);
-	init(argc, argv, &philos);
-	philo_thread_init(philos);
-	monitor_run(philos);
-	i = -1;
-	while (++i < philos[0].info->number_to_philo)
-		pthread_detach(philos[i].tid);
-	ft_usleep(500000);
-	return (0);
 }

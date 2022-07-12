@@ -6,24 +6,26 @@
 #    By: jaebae <jaebae@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/28 09:05:59 by jaebae            #+#    #+#              #
-#    Updated: 2022/05/11 00:03:36 by jaebae           ###   ########.fr        #
+#    Updated: 2022/07/12 09:39:03 by jaebae           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
 CC = gcc
-CFLAG = -Wall -Wextra -Werror
+CFLAG = -Wall -Wextra -Werror -I include
 
-SRC = 
+SRC = srcs/
+
 SRCS = \
 $(SRC)main.c \
 $(SRC)utils.c \
-$(SRC)utils2.c \
 $(SRC)ft_atoi.c \
 $(SRC)ft_atol.c \
 $(SRC)init_utils.c \
-$(SRC)action.c
+$(SRC)action.c \
+$(SRC)philo_run.c \
+$(SRC)monitor_run.c \
 
 OBJS = $(SRCS:.c=.o)
 
