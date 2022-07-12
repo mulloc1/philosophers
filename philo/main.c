@@ -6,7 +6,7 @@
 /*   By: jaebae <jaebae@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 15:42:24 by jaebae            #+#    #+#             */
-/*   Updated: 2022/07/11 19:29:19 by jaebae           ###   ########.fr       */
+/*   Updated: 2022/07/12 09:20:55 by jaebae           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,23 @@ void	*philo_run(void *ptr)
 	return (NULL);
 }
 
-void	monitor_run(t_philo *philos)
+int	philo_died_check(t_philo	*philos)
 {
 	long	current_time;
+
+	current_time = time_stamp();
+	if (current_time - philos->last_eat_time >= \
+			philos->info->time_to_die_m)
+	{
+		philos->info->is_processing = 0;
+		died(philos);
+		return (1);
+	}
+	return (0);
+}
+
+void	monitor_run(t_philo *philos)
+{
 	int		finished_eat_cnt;
 	int		i;
 
@@ -44,15 +58,9 @@ void	monitor_run(t_philo *philos)
 		finished_eat_cnt = 0;
 		while (++i < philos[0].info->number_to_philo)
 		{
-			current_time = time_stamp();
-			if (current_time - philos[i].last_eat_time >= \
-					philos->info->time_to_die_m)
-			{
-				philos->info->is_processing = 0;
-				died(philos);
+			if (philo_died_check(&philos[i]))
 				break ;
-			}
-			if (philos[i].eat_cnt == philos[i].info->philo_must_eat)
+			if (philos[i].eat_cnt >= philos[i].info->philo_must_eat)
 				finished_eat_cnt++;
 			if (finished_eat_cnt == philos[i].info->number_to_philo && \
 					philos[0].info->philo_must_eat != -1)
