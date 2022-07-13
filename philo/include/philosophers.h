@@ -7,8 +7,7 @@
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 09:02:40 by jaebae            #+#    #+#             */
 /*   Updated: 2022/07/11 18:07:19 by jaebae           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+/*                                                                            */ /* ************************************************************************** */
 
 #ifndef PHILOSOPHERS_H
 # define PHILOSOPHERS_H
@@ -25,12 +24,12 @@
 
 typedef struct s_info {
 	int				number_to_philo;
-	long			time_to_die_m;
-	long			time_to_eat_m;
-	long			time_to_sleep_m;
-	long			time_to_die_u;
-	long			time_to_eat_u;
-	long			time_to_sleep_u;
+	int				time_to_die_m;
+	int				time_to_eat_m;
+	int				time_to_sleep_m;
+	int				time_to_die_u;
+	int				time_to_eat_u;
+	int				time_to_sleep_u;
 	int				is_processing;
 	int				philo_must_eat;
 }					t_info;
@@ -53,7 +52,7 @@ void		*ft_calloc(size_t count, size_t size);
 int			ft_atoi(const char *str);
 long		ft_atol(const char *str);
 size_t		ft_strlen(const char *s);
-void		init(int argc, char *argv[], t_philo **philos);
+int			init(int argc, char *argv[], t_philo **philos);
 void		*philo_run(void *ptr);
 void		monitor_run(t_philo *philos);
 pthread_t	philo_thread_init(t_philo *philos);

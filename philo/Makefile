@@ -13,7 +13,7 @@
 NAME = philo
 
 CC = gcc
-CFLAG = -Wall -Wextra -Werror -I include
+CFLAG = -Wall -Wextra -Werror -I include -g
 
 SRC = srcs/
 
