@@ -21,7 +21,10 @@ void	*philo_run(void *ptr)
 		ft_usleep(philo->info->time_to_eat_u);
 	while (philo->info->is_processing)
 	{
-		eating(philo);
+		if (philo->left_fork % 2 == 0)
+			even_eating(philo);
+		else
+			odd_eating(philo);
 		sleeping(philo);
 		if (++philo->eat_cnt == philo->info->philo_must_eat)
 			break ;

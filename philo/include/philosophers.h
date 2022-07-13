@@ -5,8 +5,7 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaebae <jaebae@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/28 09:02:40 by jaebae            #+#    #+#             */
-/*   Updated: 2022/07/11 18:07:19 by jaebae           ###   ########.fr       */
+/*   Created: 2022/04/28 09:02:40 by jaebae            #+#    #+#             */ /*   Updated: 2022/07/11 18:07:19 by jaebae           ###   ########.fr       */
 /*                                                                            */ /* ************************************************************************** */
 
 #ifndef PHILOSOPHERS_H
@@ -59,7 +58,8 @@ pthread_t	philo_thread_init(t_philo *philos);
 long		time_stamp(void);
 long		time_stamp_u(void);
 void		ft_usleep(long time);
-void		eating(t_philo *philo);
+void		odd_eating(t_philo *philo);
+void		even_eating(t_philo *philo);
 void		sleeping(t_philo *philo);
 void		thinking(t_philo *philo);
 void		died(t_philo *philo);

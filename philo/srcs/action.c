@@ -1,7 +1,6 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   action.c                                           :+:      :+:    :+:   */
+/*                                                        :::      ::::::::   */ /*   action.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaebae <jaebae@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +11,30 @@
 
 #include "philosophers.h"
 
-void	eating(t_philo *philo)
+void	even_eating(t_philo *philo)
+{
+	long	current_time;
+
+	pthread_mutex_lock(&philo->m_forks[philo->right_fork]);
+	pthread_mutex_lock(philo->m_printable);
+	current_time = time_stamp();
+	printf("%ld %d has taken a fork\n", current_time - \
+			philo->run_time, philo->left_fork + 1);
+	pthread_mutex_unlock(philo->m_printable);
+	pthread_mutex_lock(&philo->m_forks[philo->left_fork]);
+	pthread_mutex_lock(philo->m_printable);
+	current_time = time_stamp();
+	philo->last_eat_time = current_time;
+	printf("%ld %d has taken a fork\n%ld %d is eating\n", \
+		current_time - philo->run_time, philo->left_fork + 1, \
+		current_time - philo->run_time, philo->left_fork + 1);
+	pthread_mutex_unlock(philo->m_printable);
+	ft_usleep(philo->info->time_to_eat_u);
+	pthread_mutex_unlock(&philo->m_forks[philo->left_fork]);
+	pthread_mutex_unlock(&philo->m_forks[philo->right_fork]);
+}
+
+void	odd_eating(t_philo *philo)
 {
 	long	current_time;
 
