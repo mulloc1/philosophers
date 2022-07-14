@@ -6,7 +6,7 @@
 /*   By: jaebae <jaebae@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 09:34:11 by jaebae            #+#    #+#             */
-/*   Updated: 2022/07/14 11:55:49 by jaebae           ###   ########.fr       */
+/*   Updated: 2022/07/14 12:13:45 by jaebae           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ void	*philo_run(void *ptr)
 	while (philo->info->is_processing)
 	{
 		eating(philo);
-		sleeping(philo);
 		if (++philo->eat_cnt == philo->info->philo_must_eat)
 			break ;
+		sleeping(philo);
 		thinking(philo);
 	}
 	return (NULL);
