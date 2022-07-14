@@ -6,7 +6,7 @@
 /*   By: jaebae <jaebae@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 09:34:11 by jaebae            #+#    #+#             */
-/*   Updated: 2022/07/14 12:13:45 by jaebae           ###   ########.fr       */
+/*   Updated: 2022/07/14 12:52:50 by jaebae           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	*philo_run(void *ptr)
 	t_philo	*philo;
 
 	philo = (t_philo *)ptr;
-	if (philo->left_fork % 2 == 0)
+	if (philo->left_fork % 2 == 1)
 		ft_usleep(philo->info->time_to_eat_u);
 	while (philo->info->is_processing)
 	{

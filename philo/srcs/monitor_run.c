@@ -6,7 +6,7 @@
 /*   By: jaebae <jaebae@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 09:33:30 by jaebae            #+#    #+#             */
-/*   Updated: 2022/07/14 11:43:01 by jaebae           ###   ########.fr       */
+/*   Updated: 2022/07/14 12:52:03 by jaebae           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ void	monitor_run(t_philo *philos)
 		while (++i < philos[0].info->number_to_philo)
 		{
 			current_time = time_stamp();
-			if (current_time - philos->last_eat_time > \
-					philos->info->time_to_die_m)
+			if (current_time - philos[i].last_eat_time > \
+					philos[i].info->time_to_die_m)
 			{
 				philos->info->is_processing = 0;
 				died(philos);
