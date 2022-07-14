@@ -6,13 +6,13 @@
 /*   By: jaebae <jaebae@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 15:42:24 by jaebae            #+#    #+#             */
-/*   Updated: 2022/07/12 09:34:37 by jaebae           ###   ########.fr       */
+/*   Updated: 2022/07/14 11:57:54 by jaebae           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h" 
 
-int	arg_check(int argc)
+static int	arg_check(int argc)
 {
 	if (argc < 5)
 	{

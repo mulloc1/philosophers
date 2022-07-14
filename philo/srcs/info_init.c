@@ -6,7 +6,7 @@
 /*   By: jaebae <jaebae@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 11:23:45 by jaebae            #+#    #+#             */
-/*   Updated: 2022/07/14 11:40:14 by jaebae           ###   ########.fr       */
+/*   Updated: 2022/07/14 11:47:17 by jaebae           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	input_argv(int *member, char *argv, char *str)
 {
 	if (!is_numbers(argv))
 	{
-		printf("argv is not numbers\n");
+		printf("argv %s is not numbers\n", argv);
 		return (0);
 	}
 	*member = ft_atoi(argv);

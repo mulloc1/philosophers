@@ -6,7 +6,7 @@
 /*   By: jaebae <jaebae@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 11:21:34 by jaebae            #+#    #+#             */
-/*   Updated: 2022/07/14 11:27:21 by jaebae           ###   ########.fr       */
+/*   Updated: 2022/07/14 11:56:08 by jaebae           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,7 @@ pthread_t	philo_thread_init(t_philo *philos);
 long		time_stamp(void);
 long		time_stamp_u(void);
 void		ft_usleep(long time);
-void		odd_eating(t_philo *philo);
-void		even_eating(t_philo *philo);
+void		eating(t_philo *philo);
 void		sleeping(t_philo *philo);
 void		thinking(t_philo *philo);
 void		died(t_philo *philo);
